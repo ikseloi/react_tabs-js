@@ -13,13 +13,14 @@ export const tabs = [
 ];
 
 export const App = () => {
-  const [activeTabId, setActiveTabId] = useState(tabs[0].id);
+  const initialTabId = tabs.length > 0 ? tabs[0].id : null;
+  const [activeTabId, setActiveTabId] = useState(initialTabId);
+
+  if (initialTabId === null) {
+    return <div>No tabs available</div>;
+  }
+
   const activeTab = getActiveTab(tabs, activeTabId);
-  const handleTabSelected = id => {
-    if (id !== activeTabId) {
-      setActiveTabId(id);
-    }
-  };
 
   return (
     <div className="section">
@@ -28,7 +29,7 @@ export const App = () => {
       <Tabs
         tabs={tabs}
         activeTabId={activeTabId}
-        onTabSelected={handleTabSelected}
+        onTabSelected={setActiveTabId}
       />
     </div>
   );

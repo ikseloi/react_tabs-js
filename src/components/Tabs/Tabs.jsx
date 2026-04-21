@@ -1,31 +1,7 @@
 import { getActiveTab } from '../../helpers/tabsHelpers';
+import { Li } from './TabItem';
 
-const Li = ({ tab, activeTabId, onClick }) => {
-  const classValue = activeTabId === tab.id ? 'is-active' : '';
-
-  return (
-    <li
-      className={classValue}
-      data-cy="Tab"
-    >
-      <a
-        href={`#${tab.id}`}
-        data-cy="TabLink"
-        onClick={event => {
-          event.preventDefault();
-
-          if (activeTabId !== tab.id) {
-            onClick(tab.id);
-          }
-        }}
-      >
-        {tab.title}
-      </a>
-    </li>
-  );
-};
-
-export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
+export const Tabs = ({ tabs = [], activeTabId, onTabSelected }) => {
   const activeTab = getActiveTab(tabs, activeTabId);
 
   return (
@@ -37,7 +13,7 @@ export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
               tab={tab}
               key={tab.id}
               activeTabId={activeTab.id}
-              onClick={onTabSelected}
+              onTabSelected={onTabSelected}
             />
           ))}
         </ul>
