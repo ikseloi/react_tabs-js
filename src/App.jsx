@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import './App.scss';
 
 import React, { useState } from 'react';
+import { getActiveTab } from './helpers/tabsHelpers';
 import { Tabs } from './components/Tabs/Tabs';
 
 export const tabs = [
@@ -13,7 +14,7 @@ export const tabs = [
 
 export const App = () => {
   const [activeTabId, setActiveTabId] = useState(tabs[0].id);
-  const activeTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
+  const activeTab = getActiveTab(tabs, activeTabId);
   const handleTabSelected = id => {
     if (id !== activeTabId) {
       setActiveTabId(id);
@@ -26,31 +27,9 @@ export const App = () => {
 
       <Tabs
         tabs={tabs}
-        activeTab={activeTab}
+        activeTabId={activeTabId}
         onTabSelected={handleTabSelected}
       />
     </div>
   );
 };
-
-// export const App = () => {
-//   const [activeTabId, setActiveTabId] = useState(tabs[0].id);
-//   const activeTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
-//   const handleTabSelected = id => {
-//     if (id !== activeTabId) {
-//       setActiveTabId(id);
-//     }
-//   };
-
-//   return (
-//     <div className="section">
-//       <h1 className="title">{`Selected tab is ${activeTab.title}`}</h1>
-
-//       <Tabs
-//         tabs={tabs}
-//         activeTabId={activeTabId}
-//         onTabSelected={handleTabSelected}
-//       />
-//     </div>
-//   );
-// };
